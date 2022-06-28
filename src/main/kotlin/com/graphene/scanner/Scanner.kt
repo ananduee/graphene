@@ -42,7 +42,7 @@ class Scanner(private val source: String) {
             '&' -> addToken(TokenType.AMP)
             '=' -> addToken(TokenType.EQUALS)
             '@' -> addToken(TokenType.AT)
-            '.' -> expandOperator()
+            '.' -> readExpandOperator()
             '#' -> {
                 while (peek() != '\n' && !isAtEnd()) advance()
                 addToken(TokenType.COMMENT)
@@ -57,8 +57,8 @@ class Scanner(private val source: String) {
             '\n' -> currentLine++
             ' ' -> {}
             else -> when {
-                isNumeric(c) -> number()
-                isAlpha(c) -> identifier()
+                isNumeric(c) -> readNumber()
+                isAlpha(c) -> readIdentifier()
                 else -> throw IllegalArgumentException("Found invalid token $c on line number $currentLine idx $startIdx")
             }
         }
@@ -101,7 +101,7 @@ class Scanner(private val source: String) {
         addToken(TokenType.BLOCK_STRING)
     }
 
-    private fun number() {
+    private fun readNumber() {
         while (isNumeric(peek())) advance()
         var isInt = true
         if (peek() == '.' && isNumeric(peekNext())) {
@@ -112,7 +112,7 @@ class Scanner(private val source: String) {
         addToken(if (isInt) TokenType.INT else TokenType.FLOAT)
     }
 
-    private fun identifier() {
+    private fun readIdentifier() {
         while (isAlpha(peek())) advance()
         when (source.substring(startIdx, currentIdx)) {
             "query" -> addToken(TokenType.QUERY)
@@ -122,7 +122,7 @@ class Scanner(private val source: String) {
         }
     }
 
-    private fun expandOperator() {
+    private fun readExpandOperator() {
         while (peek() == '.') advance()
         addToken(TokenType.SPREAD)
     }
