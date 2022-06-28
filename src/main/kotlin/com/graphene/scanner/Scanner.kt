@@ -36,9 +36,24 @@ class Scanner(private val source: String) {
             '}' -> addToken(TokenType.RIGHT_BRACE)
             ',' -> addToken(TokenType.COMMA)
             ':' -> addToken(TokenType.COLON)
-            '!' -> addToken(TokenType.NEGATE)
+            '!' -> addToken(TokenType.BANG)
+            '|' -> addToken(TokenType.PIPE)
+            '$' -> addToken(TokenType.DOLLAR)
+            '&' -> addToken(TokenType.AMP)
+            '=' -> addToken(TokenType.EQUALS)
+            '@' -> addToken(TokenType.AT)
             '.' -> expandOperator()
-            '#' -> while (peek() != '\n' && !isAtEnd()) advance() // comment block
+            '#' -> {
+                while (peek() != '\n' && !isAtEnd()) advance()
+                addToken(TokenType.COMMENT)
+            }
+            '"' -> {
+                if (peekNext(1) == '"' && peekNext(2) == '"') {
+                    readBlockString()
+                } else {
+                    readString()
+                }
+            }
             '\n' -> currentLine++
             ' ' -> {}
             else -> when {
@@ -49,9 +64,9 @@ class Scanner(private val source: String) {
         }
     }
 
-    private fun advance(): Char {
-        currentIdx++
-        return source[currentIdx - 1]
+    private fun advance(advanceBy: Int = 1): Char {
+        currentIdx += advanceBy
+        return source[currentIdx - advanceBy]
     }
 
     private fun peek(): Char {
@@ -66,13 +81,35 @@ class Scanner(private val source: String) {
         return source[currentIdx+next]
     }
 
+    private fun readString() {
+        advance()
+        while (!isAtEnd() && peek() != '"') {
+            if (advance() == '\n') {
+                throw IllegalArgumentException("String is not expected to contain new line in lineNumber $currentLine")
+            }
+        }
+        addToken(TokenType.STRING)
+    }
+
+    private fun readBlockString() {
+        advance(3)
+        while ((peek() != '"' && peekNext(1) != '"' && peekNext(2) != '"') && !isAtEnd()) {
+            if (advance() == '\n') {
+                currentLine++
+            }
+        }
+        addToken(TokenType.BLOCK_STRING)
+    }
+
     private fun number() {
         while (isNumeric(peek())) advance()
+        var isInt = true
         if (peek() == '.' && isNumeric(peekNext())) {
+            isInt = false
             advance() // Consume the "."
             while (isNumeric(peek())) advance()
         }
-        addToken(TokenType.NUMBER)
+        addToken(if (isInt) TokenType.INT else TokenType.FLOAT)
     }
 
     private fun identifier() {
@@ -81,13 +118,13 @@ class Scanner(private val source: String) {
             "query" -> addToken(TokenType.QUERY)
             "mutation" -> addToken(TokenType.MUTATION)
             "type" -> addToken(TokenType.TYPE)
-            else -> addToken(TokenType.IDENTIFIER)
+            else -> addToken(TokenType.NAME)
         }
     }
 
     private fun expandOperator() {
         while (peek() == '.') advance()
-        addToken(TokenType.EXPAND)
+        addToken(TokenType.SPREAD)
     }
 
     private fun addToken(tokenType: TokenType) {

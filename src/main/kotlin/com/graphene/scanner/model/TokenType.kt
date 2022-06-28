@@ -3,13 +3,13 @@ package com.graphene.scanner.model
 enum class TokenType {
 
     // Single character tokens
-    LEFT_PAREN,RIGHT_PAREN,LEFT_BRACE,RIGHT_BRACE,COMMA,COLON,NEGATE,
+    LEFT_PAREN,RIGHT_PAREN,LEFT_BRACE,RIGHT_BRACE,COMMA,COLON,BANG,PIPE,DOLLAR,AMP,EQUALS,AT,
 
     // Multiple character tokens
-    EXPAND,
+    SPREAD,
 
     // Literals
-    IDENTIFIER,NUMBER,
+    NAME,INT,FLOAT,COMMENT,STRING,BLOCK_STRING,
 
     // Keywords
     QUERY,MUTATION,TYPE
