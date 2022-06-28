@@ -4,3 +4,5 @@ Graphene is a graphql server written from scratch. Main idea is not take any ext
 performance graphql server which supports variety of use cases series, parallel, remote calls etc.
 
 Main motivation is for me to learn and handle things like parsing, http etc.
+
+For tests we are relying on tests in https://github.com/graphql/graphql-js
