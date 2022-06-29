@@ -32,11 +32,12 @@ internal class ScannerTest {
         assertTokenPresent("\r\nfoo") {
             assertEquals(TokenType.NAME, it.type)
             assertEquals("foo", it.lexMe)
-            //assertEquals(2, it.lineNumber)
+            assertEquals(2, it.lineNumber)
         }
         assertTokenPresent("\n\r\n\n\n\nfoo") {
             assertEquals(TokenType.NAME, it.type)
             assertEquals("foo", it.lexMe)
+            assertEquals(6, it.lineNumber)
         }
     }
 
@@ -54,11 +55,11 @@ internal class ScannerTest {
         assertTokenPresent("\"\"") {
             assertEquals(TokenType.STRING, it.type)
             assertEquals("\"\"", it.lexMe)
-        }/*
+        }
         assertTokenPresent("\"simple\"") {
             assertEquals(TokenType.STRING, it.type)
             assertEquals("\"simple\"", it.lexMe)
-        }*/
+        }
     }
 
     private fun assertTokenPresent(source: String, tokenMatcher: Consumer<Token>) {

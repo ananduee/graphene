@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a933f8f7-d17f-4f99-b773-f0b3adc5784c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/graphene/scanner/Scanner.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/graphene/language/scanner/Scanner.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/graphene/scanner/model/Token.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/graphene/language/scanner/model/Token.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/graphene/scanner/model/TokenType.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/graphene/language/scanner/model/TokenType.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/graphene/language/scanner/Scanner.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/graphene/language/scanner/Scanner.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/graphene/scanner/ScannerTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/com/graphene/scanner/ScannerTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -22,6 +18,16 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view />
+      </state>
+    </system>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -47,17 +53,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "last_opened_file_path": "/Users/anasinha/IdeaProjects/graphene",
-    "nodejs_package_manager_path": "npm"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/anasinha/IdeaProjects/graphene&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -69,7 +75,30 @@
       <recent name="com.graphene.scanner" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.ScannerTest.testHandlesString">
+  <component name="RunManager" selected="Gradle.ScannerTest">
+    <configuration name="ScannerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.graphene.scanner.ScannerTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <configuration name="ScannerTest.scanTokens" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -93,7 +122,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="ScannerTest.testHandlesString" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ScannerTest.testHandlesString (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -164,7 +193,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.ScannerTest.testHandlesString" />
+        <item itemvalue="Gradle.ScannerTest" />
+        <item itemvalue="Gradle.ScannerTest.testHandlesString (1)" />
         <item itemvalue="Gradle.ScannerTest.testSkipsWhiteSpaceAndComments" />
         <item itemvalue="Gradle.ScannerTest.testLineBreaks" />
         <item itemvalue="Gradle.ScannerTest.scanTokens" />
@@ -179,7 +209,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1656426852603</updated>
-      <workItem from="1656472734505" duration="733000" />
+      <workItem from="1656472734505" duration="1522000" />
     </task>
     <servers />
   </component>
@@ -196,20 +226,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="kotlin-function">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/com/graphene/language/scanner/Scanner.kt</url>
-          <line>83</line>
-          <properties class="com.graphene.language.scanner.Scanner" method="readString">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

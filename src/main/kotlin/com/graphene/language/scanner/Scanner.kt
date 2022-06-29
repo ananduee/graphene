@@ -28,8 +28,7 @@ class Scanner(private val source: String) {
     }
 
     private fun scanToken() {
-        var c = advance()
-        when (c) {
+        when (val c = advance()) {
             '(' -> addToken(TokenType.LEFT_PAREN)
             ')' -> addToken(TokenType.RIGHT_PAREN)
             '{' -> addToken(TokenType.LEFT_BRACE)
@@ -56,6 +55,7 @@ class Scanner(private val source: String) {
             }
             '\n' -> currentLine++
             ' ' -> {}
+            '\r' -> {} // Move to start of line. We don't keep track of char index so it's okay to not do anything.
             else -> when {
                 isNumeric(c) -> readNumber()
                 isAlpha(c) -> readIdentifier()
@@ -82,18 +82,15 @@ class Scanner(private val source: String) {
     }
 
     private fun readString() {
-        advance()
-        if (peek() != '"') {
-            while (!isAtEnd() && peek() != '"') {
-                if (advance() == '\n') {
-                    throw IllegalArgumentException("String is not expected to contain new line in lineNumber $currentLine")
-                }
+        while (!isAtEnd() && peek() != '"') {
+            if (advance() == '\n') {
+                throw IllegalArgumentException("String is not expected to contain new line in lineNumber $currentLine")
             }
-            if (isAtEnd()) {
-                throw IllegalArgumentException("Unterminated string found on line $currentLine")
-            }
-            advance()
         }
+        if (isAtEnd()) {
+            throw IllegalArgumentException("Unterminated string found on line $currentLine")
+        }
+        advance()
         addToken(TokenType.STRING)
     }
 
