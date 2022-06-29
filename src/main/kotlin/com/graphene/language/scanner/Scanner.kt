@@ -47,7 +47,7 @@ class Scanner(private val source: String) {
                 addToken(TokenType.COMMENT)
             }
             '"' -> {
-                if (peekNext(1) == '"' && peekNext(2) == '"') {
+                if (peek() == '"' && peekNext(1) == '"') {
                     readBlockString()
                 } else {
                     readString()
@@ -82,7 +82,9 @@ class Scanner(private val source: String) {
     }
 
     private fun readString() {
-        while (!isAtEnd() && peek() != '"') {
+        var lastCharEscape = false
+        while (!isAtEnd() && (peek() != '"' || lastCharEscape)) {
+            lastCharEscape = peek() == '\\'
             if (advance() == '\n') {
                 throw IllegalArgumentException("String is not expected to contain new line in lineNumber $currentLine")
             }

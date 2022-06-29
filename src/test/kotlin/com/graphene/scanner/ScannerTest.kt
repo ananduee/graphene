@@ -6,7 +6,6 @@ import com.graphene.language.scanner.model.TokenType
 import org.junit.jupiter.api.Test
 import java.util.function.Consumer
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 /**
  * We need to make all tests pass from graphql-js
@@ -59,6 +58,14 @@ internal class ScannerTest {
         assertTokenPresent("\"simple\"") {
             assertEquals(TokenType.STRING, it.type)
             assertEquals("\"simple\"", it.lexMe)
+        }
+    }
+
+    @Test
+    fun testHandlesEscapedString() {
+        assertTokenPresent("\"\\\"\"") {
+            assertEquals(TokenType.STRING, it.type)
+            assertEquals("\"\\\"\"", it.lexMe)
         }
     }
 
