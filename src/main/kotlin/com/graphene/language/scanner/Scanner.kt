@@ -1,8 +1,8 @@
-package com.graphene.scanner
+package com.graphene.language.scanner
 
-import com.graphene.scanner.model.Token
-import com.graphene.scanner.model.TokenType
-import com.graphene.utils.validateIsNotBlank
+import com.graphene.language.scanner.model.Token
+import com.graphene.language.scanner.model.TokenType
+import com.graphene.utils.Validator
 
 class Scanner(private val source: String) {
 
@@ -12,7 +12,7 @@ class Scanner(private val source: String) {
     private var currentLine: Int
 
     init {
-        validateIsNotBlank(source) { "Empty source supplied." }
+        Validator.isNotBlank(source) { "Empty source supplied." }
         tokens = ArrayList()
         startIdx = 0
         currentIdx = 0
@@ -83,10 +83,16 @@ class Scanner(private val source: String) {
 
     private fun readString() {
         advance()
-        while (!isAtEnd() && peek() != '"') {
-            if (advance() == '\n') {
-                throw IllegalArgumentException("String is not expected to contain new line in lineNumber $currentLine")
+        if (peek() != '"') {
+            while (!isAtEnd() && peek() != '"') {
+                if (advance() == '\n') {
+                    throw IllegalArgumentException("String is not expected to contain new line in lineNumber $currentLine")
+                }
             }
+            if (isAtEnd()) {
+                throw IllegalArgumentException("Unterminated string found on line $currentLine")
+            }
+            advance()
         }
         addToken(TokenType.STRING)
     }

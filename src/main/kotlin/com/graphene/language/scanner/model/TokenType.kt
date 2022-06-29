@@ -1,4 +1,4 @@
-package com.graphene.scanner.model
+package com.graphene.language.scanner.model
 
 enum class TokenType {
 

@@ -1,9 +1,13 @@
 package com.graphene.utils
 
-fun isBlank(value: String) : Boolean {
-    if (value.isEmpty()) {
-        return true
-    }
+object StringUtils {
 
-    return value.toCharArray().all { it.isWhitespace() }
+    fun isBlank(value: String) : Boolean {
+        if (value.isEmpty()) {
+            return true
+        }
+
+        return value.all { it.isWhitespace() }
+    }
 }
+
