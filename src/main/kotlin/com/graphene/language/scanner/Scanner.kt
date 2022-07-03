@@ -43,7 +43,7 @@ class Scanner(private val source: String) {
             '@' -> addToken(TokenType.AT)
             '.' -> readExpandOperator()
             '#' -> {
-                while (peek() != '\n' && !isAtEnd()) advance()
+                while (!isLineBreak(peek()) && !isAtEnd()) advance()
                 addToken(TokenType.COMMENT)
             }
             '"' -> {
@@ -53,10 +53,9 @@ class Scanner(private val source: String) {
                     readString()
                 }
             }
-            '\n' -> currentLine++
-            ' ' -> {}
-            '\r' -> {} // Move to start of line. We don't keep track of char index so it's okay to not do anything.
             else -> when {
+                isWhiteSpaceCharacter(c) -> {}
+                isLineBreak(c) -> currentLine++
                 isNumeric(c) -> readNumber()
                 isAlpha(c) -> readIdentifier()
                 else -> throw IllegalArgumentException("Found invalid token $c on line number $currentLine idx $startIdx")
@@ -85,7 +84,7 @@ class Scanner(private val source: String) {
         var lastCharEscape = false
         while (!isAtEnd() && (peek() != '"' || lastCharEscape)) {
             lastCharEscape = peek() == '\\'
-            if (advance() == '\n') {
+            if (isLineBreak(advance())) {
                 throw IllegalArgumentException("String is not expected to contain new line in lineNumber $currentLine")
             }
         }
@@ -99,7 +98,7 @@ class Scanner(private val source: String) {
     private fun readBlockString() {
         advance(3)
         while ((peek() != '"' && peekNext(1) != '"' && peekNext(2) != '"') && !isAtEnd()) {
-            if (advance() == '\n') {
+            if (isLineBreak(advance())) {
                 currentLine++
             }
         }
@@ -133,12 +132,26 @@ class Scanner(private val source: String) {
     }
 
     private fun addToken(tokenType: TokenType) {
-        tokens.add(Token(tokenType, source.substring(startIdx, currentIdx), currentLine))
+        var substringStartIdx = startIdx
+        var substringEndIdx = currentIdx
+        when (tokenType) {
+            TokenType.COMMENT -> substringStartIdx++
+            TokenType.STRING -> {
+                substringStartIdx++
+                substringEndIdx--
+            }
+            else -> {}
+        }
+        tokens.add(Token(tokenType, source.substring(substringStartIdx, substringEndIdx), currentLine))
     }
 
-    private fun isAlpha(c: Char): Boolean = c.isLetter() || c == '$'
+    private fun isAlpha(c: Char): Boolean = c.isLetter()
 
     private fun isNumeric(c: Char): Boolean = c.isDigit()
 
     private fun isAtEnd(): Boolean = currentIdx >= source.length
+
+    private fun isLineBreak(c: Char): Boolean = c == '\n' || c == '\r'
+
+    private fun isWhiteSpaceCharacter(c: Char) = c == ' ' || c == '\t'
 }
